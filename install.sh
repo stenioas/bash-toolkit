@@ -28,35 +28,27 @@ _check_dependencies() {
         echo "Using wget for download."
     else
         echo "ERROR: 'curl' or 'wget' is required to continue." >&2
-        return 1
+        exit 1
     fi
 }
 
 # ----------------------------------------------------------------------------
 # EXECUTION
 
-main() {
-  _check_dependencies || return 1
+_check_dependencies
 
-  mkdir -p "$LIB_TMP_DIR"
+mkdir -p "$LIB_TMP_DIR"
 
-  # If the file does not exist or is too old (e.g., +24h), download it again
-  if [ ! -f "$LIB_PATH" ] || [ $(find "$LIB_PATH" -mtime +1) ]; then
-    echo "Downloading updated library: bash-toolkit.lib..."
-    curl -sL "$LIB_URL" -o "$LIB_PATH" || {
-      echo "ERROR: Failed to download the library from $LIB_URL" >&2
-      return 1
-    }
-  fi
-
-  source "$LIB_PATH" || {
-      echo "ERROR: Failed to source the library at $LIB_PATH." >&2
-      return 1
+# If the file does not exist or is too old (e.g., +24h), download it again
+if [ ! -f "$LIB_PATH" ] || [ $(find "$LIB_PATH" -mtime +1) ]; then
+  echo "Downloading updated library: bash-toolkit.lib..."
+  curl -sL "$LIB_URL" -o "$LIB_PATH" || {
+    echo "ERROR: Failed to download the library from $LIB_URL" >&2
   }
+fi
 
-  echo "Library 'bash-toolkit.lib' installed successfully and loaded into your shell!"
-  _pause
-  return 0
+source "$LIB_PATH" || {
+  echo "ERROR: Failed to source the library at $LIB_PATH." >&2
 }
 
-main
+echo "Library 'bash-toolkit.lib' installed successfully and loaded into your shell!"
