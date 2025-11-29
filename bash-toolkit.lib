@@ -1,0 +1,105 @@
+# ----------------------------------------------------------------------------
+# TERMINAL CONTROL FUNCTIONS
+# ----------------------------------------------------------------------------
+# Formatting Functions
+
+set_bold() {
+  tput bold
+}
+
+reset() {
+  tput sgr0
+}
+
+# ----------------------------------------------------------------------------
+# Regular Color Functions
+
+set_black() {
+  tput setaf 0
+}
+set_red() {
+  tput setaf 1
+}
+set_green() {
+  tput setaf 2
+}
+set_yellow() {
+  tput setaf 3
+}
+set_blue() {
+  tput setaf 4
+}
+set_purple() {
+  tput setaf 5
+}
+set_cyan() {
+  tput setaf 6
+}
+set_white() {
+  tput setaf 7
+}
+
+# ----------------------------------------------------------------------------
+# Bold Color Functions
+
+set_bblack() {
+  set_bold; set_black
+}
+set_bred() {
+  set_bold; set_red
+}
+set_bgreen() {
+  set_bold; set_green
+}
+set_byellow() {
+  set_bold; set_yellow
+}
+set_bblue() {
+  set_bold; set_blue
+}
+set_bpurple() {
+  set_bold; set_purple
+}
+set_bcyan() {
+  set_bold; set_cyan
+}
+set_bwhite() {
+  set_bold; set_white
+}
+
+# ----------------------------------------------------------------------------
+# UTILITY FUNCTIONS
+# ----------------------------------------------------------------------------
+
+_pause() {
+  local pause_msg=" Press any key to continue or [ctrl + c] to exit..."
+  echo -e "\n${pause_msg}"
+
+  tput civis
+  read -n 1 -s -r
+  tput cnorm
+}
+
+_print_title() {
+  local title="$(set_byellow)${1^^}$(reset)"
+  echo -e "\n${title}"
+}
+
+_print_msg() {
+  local message="${1}"
+  echo -e "$(set_bcyan)${message}$(reset)"
+}
+
+_print_error() {
+  local message="${1}"
+  echo -e "$(set_bred)${message}$(reset)"
+}
+
+_check_connection() {
+  ping -q -w 1 -c 1 8.8.8.8
+
+  if [[ $? -ne 0 ]]; then
+    _print_error "You have no connection! Please check your network settings."
+    exit 1
+  fi
+}
