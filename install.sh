@@ -28,7 +28,7 @@ _check_dependencies() {
         echo "Using wget for download."
     else
         echo "ERROR: 'curl' or 'wget' is required to continue." >&2
-        exit 1
+        return 1
     fi
 }
 
@@ -36,7 +36,7 @@ _check_dependencies() {
 # EXECUTION
 
 main() {
-  _check_dependencies
+  _check_dependencies || return 1
 
   mkdir -p "$LIB_TMP_DIR"
 
@@ -45,13 +45,17 @@ main() {
     echo "Downloading updated library: bash-toolkit.lib..."
     curl -sL "$LIB_URL" -o "$LIB_PATH" || {
       echo "ERROR: Failed to download the library from $LIB_URL" >&2
-      exit 1
+      return 1
     }
   fi
 
-  source "$LIB_PATH"
+  source "$LIB_PATH" || {
+      echo "ERROR: Failed to source the library at $LIB_PATH." >&2
+      return 1
+  }
 
-  echo "Library 'bash-toolkit.lib' installed successfully!"
+  echo "Library 'bash-toolkit.lib' installed successfully and loaded into your shell!"
+  return 0
 }
 
 main
