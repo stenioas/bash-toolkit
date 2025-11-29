@@ -55,6 +55,7 @@ main() {
   }
 
   echo "Library 'bash-toolkit.lib' installed successfully and loaded into your shell!"
+  _pause
   return 0
 }
 
