@@ -51,7 +51,7 @@ main() {
 
   source "$LIB_PATH"
 
-  echo "Library 'bash-toolkit.lib' imported successfully!"
+  echo "Library 'bash-toolkit.lib' installed successfully!"
 }
 
 main

@@ -2,8 +2,8 @@
 
 My own bash toolkit
 
-## Installation
+## Usage
 
 ```bash
-curl -fsSL https://raw.githubusercontent.com/stenioas/bash-toolkit/main/install.sh | bash
+source <(curl -fsSL https://raw.githubusercontent.com/stenioas/bash-toolkit/main/install.lib)
 ```
