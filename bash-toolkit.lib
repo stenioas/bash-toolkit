@@ -1,4 +1,12 @@
 # ----------------------------------------------------------------------------
+# Name        : bash-toolkit.lib
+# Description : Bash scripts toolkit
+# Version     : 1.0.0
+# Author      : Stenio Silveira <stenioas@gmail.com>
+# Date        : 29/11/2025
+# License     : GNU/GPL v3.0
+#
+# ----------------------------------------------------------------------------
 # TERMINAL CONTROL FUNCTIONS
 # ----------------------------------------------------------------------------
 # Formatting Functions
