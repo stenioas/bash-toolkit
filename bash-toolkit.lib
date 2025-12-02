@@ -100,7 +100,7 @@ _print_msg() {
 
 _print_error() {
   local message="${1}"
-  echo -e "$(set_bred)Erro: $(reset)${message}"
+  echo -e "$(set_bred)Error: $(reset)${message}"
 }
 
 _check_connection() {
